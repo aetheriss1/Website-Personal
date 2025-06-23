@@ -17,6 +17,7 @@
       justify-content: center;
       height: 100vh;
       text-align: center;
+      overflow: hidden;
     }
 
     .pfp {
@@ -88,12 +89,36 @@
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
+
+    .flower {
+      position: fixed;
+      top: -40px;
+      width: 16px;
+      height: 16px;
+      background: radial-gradient(circle, #74c0fc 30%, transparent 40%);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: fall 9s linear infinite, sway 2.5s ease-in-out infinite;
+      opacity: 0.7;
+      z-index: 0;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh);
+      }
+    }
+
+    @keyframes sway {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(30px); }
+    }
   </style>
 </head>
 <body>
 
-  <img src="image.png" alt="Profile Picture" class="pfp" />
-
+  <img src="https://cdn.discordapp.com/attachments/1377625593893359716/1386735887622340692/image.png?ex=685ac9ef&is=6859786f&hm=d555e04604be9a2852af1d705650d7437564635e3178ba59268dba3e3e0dc8a5&" alt="Profile Picture" class="pfp" />
+  
   <h1>Aetheris</h1>
   <p>
     A creative mind who loves coding, design, and coffee ☕ <br>
@@ -102,9 +127,20 @@
 
   <div class="links">
     <a href="https://discord.gg/8NFAMrhwwj" target="_blank">Discord</a>
-    <a href="https://github.com/" target="_blank">GitHub</a>
+    <a href="https://github.com" target="_blank">GitHub</a>
     <a href="https://www.tiktok.com/@user_q158" target="_blank">TikTok</a>
   </div>
+
+  <script>
+    for (let i = 0; i < 30; i++) {
+      const flower = document.createElement('span');
+      flower.className = 'flower';
+      flower.style.left = Math.random() * 100 + 'vw';
+      flower.style.animationDelay = (Math.random() * 10).toFixed(2) + 's';
+      flower.style.width = flower.style.height = (Math.random() * 10 + 10) + 'px';
+      document.body.appendChild(flower);
+    }
+  </script>
 
 </body>
 </html>
