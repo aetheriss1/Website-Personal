@@ -49,30 +49,39 @@
       opacity: 0.9;
     }
 
+    .links {
+      display: flex;
+      gap: 20px;
+    }
+
     .links a {
       text-decoration: none;
       color: #74c0fc;
-      margin: 0 12px;
       font-weight: bold;
       font-size: 1.2em;
       padding: 10px 16px;
       border-radius: 10px;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
+      background-color: transparent;
+      border: 2px solid #74c0fc;
     }
 
     .links a:hover {
       color: #ffd700;
       background: rgba(255, 255, 255, 0.1);
       border-bottom: 2px solid #ffd700;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
     }
 
     .links a:active {
-      transform: scale(0.92);
+      transform: translateY(-5px) scale(0.95);
+      box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
     }
 
     @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes float {
@@ -83,16 +92,17 @@
 </head>
 <body>
 
-  <img src="https://cdn.discordapp.com/attachments/1377625593893359716/1386735887622340692/image.png?ex=685ac9ef&is=6859786f&hm=d555e04604be9a2852af1d705650d7437564635e3178ba59268dba3e3e0dc8a5&" alt="Profile Picture" class="pfp" />
+  <img src="image.png" alt="Profile Picture" class="pfp" />
+
   <h1>Aetheris</h1>
   <p>
-    A creative mind who loves coding, design, and coffee <br>
+    A creative mind who loves coding, design, and coffee ☕ <br>
     Currently building cool stuff on Minecraft & Discord.
   </p>
 
   <div class="links">
     <a href="https://discord.gg/8NFAMrhwwj" target="_blank">Discord</a>
-    <a href="https://github.com" target="_blank">GitHub</a>
+    <a href="https://github.com/" target="_blank">GitHub</a>
     <a href="https://www.tiktok.com/@user_q158" target="_blank">TikTok</a>
   </div>
 
