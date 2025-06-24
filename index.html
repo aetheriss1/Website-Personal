@@ -1,146 +1,1397 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Personal Site</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aetheris Portfolio</title>
   <style>
-    body {
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+    
+    * {
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    body {
       color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      background: #1a1a1a;
+    }
+    
+    /* Animated Elements */
+    .floating-elements {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+    
+    .floating-element {
+      position: absolute;
+      background: rgba(150, 150, 150, 0.1);
+      border-radius: 50%;
+      filter: blur(40px);
+      animation: float 15s infinite linear;
+    }
+    
+    /* New floating shapes */
+    .floating-shapes {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+    
+    .floating-shape {
+      position: absolute;
+      opacity: 0.1;
+      animation: floatRotate 25s infinite linear;
+    }
+    
+    .shape-triangle {
+      width: 0;
+      height: 0;
+      border-left: 50px solid transparent;
+      border-right: 50px solid transparent;
+      border-bottom: 100px solid #8e8e8e;
+    }
+    
+    .shape-square {
+      width: 80px;
+      height: 80px;
+      background: #b0b0b0;
+      transform: rotate(15deg);
+    }
+    
+    /* Name Animation */
+    .name-animation {
+      position: relative;
+      display: inline-block;
+      color: #b0b0b0;
+    }
+    
+    .name-animation::after {
+      content: '';
+      position: absolute;
+      right: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 1.2em;
+      background: #b0b0b0;
+      animation: blink 0.7s infinite;
+    }
+    
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    
+    @keyframes blink {
+      50% { opacity: 0 }
+    }
+    
+    /* Layout */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Header - Split Screen Layout */
+    .header-container {
+      display: flex;
+      min-height: 100vh;
+    }
+    
+    .header-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-right: 40px;
+      position: relative;
+    }
+    
+    .header-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(100, 100, 100, 0.1), rgba(50, 50, 50, 0.3));
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 20% 100%);
+    }
+    
+    /* Typography */
+    h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      line-height: 1.2;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards 0.5s;
+    }
+    
+    .title {
+      font-size: 1.5rem;
+      color: #8e8e8e;
+      margin-bottom: 30px;
+      font-weight: 300;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards 0.7s;
+    }
+    
+    .header-left p {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards 0.9s;
+    }
+    
+    .header-left div {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards 1.1s;
+    }
+    
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      position: relative;
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60%;
+      height: 4px;
+      background: linear-gradient(90deg, #8e8e8e, #b0b0b0);
+      border-radius: 2px;
+      transform-origin: left;
+      transform: scaleX(0);
+      animation: scaleIn 0.8s forwards 0.5s;
+    }
+    
+    /* Profile Image */
+    .profile-img-container {
+      position: relative;
+      width: 350px;
+      height: 350px;
+      opacity: 0;
+      transform: scale(0.8) rotate(10deg);
+      animation: scaleInRotate 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 1s;
+    }
+    
+    .profile-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      object-fit: cover;
+      border: 5px solid #8e8e8e;
+      box-shadow: 0 20px 50px rgba(150, 150, 150, 0.3);
+      transform: rotate(5deg);
+      transition: all 0.5s ease;
+    }
+    
+    .profile-img:hover {
+      transform: rotate(0deg) scale(1.05);
+    }
+    
+    .profile-img-decoration {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 2px solid rgba(150, 150, 150, 0.5);
+      border-radius: 20px;
+      top: 20px;
+      left: 20px;
+      z-index: -1;
+      transition: all 0.5s ease;
+    }
+    
+    .profile-img-container:hover .profile-img-decoration {
+      top: 15px;
+      left: 15px;
+    }
+    
+    /* Navigation - Vertical */
+    .nav-vertical {
+      position: fixed;
+      left: 40px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      background: rgba(50, 50, 50, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 30px;
+      padding: 20px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      animation: fadeInRight 1s forwards 1.5s;
+    }
+    
+    .nav-link {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-size: 1.2rem;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .nav-link i {
+      font-size: 1.5rem;
+      margin-bottom: 5px;
+    }
+    
+    .nav-link:hover {
+      color: #b0b0b0;
+      transform: translateY(-3px);
+    }
+    
+    .nav-link.active {
+      color: #b0b0b0;
+    }
+    
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      width: 8px;
+      height: 8px;
+      background: #b0b0b0;
+      border-radius: 50%;
+    }
+    
+    /* Sections */
+    .section {
+      padding: 100px 0;
+      position: relative;
+    }
+    
+    .section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(50, 50, 50, 0.7), rgba(80, 80, 80, 0.3));
+      z-index: -1;
+      clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
+    }
+    
+    /* About Section - Timeline Layout */
+    .about-timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      padding-left: 100px;
+    }
+    
+    .about-timeline::before {
+      content: '';
+      position: absolute;
+      left: 50px;
+      top: 0;
+      height: 100%;
+      width: 4px;
+      background: linear-gradient(to bottom, #8e8e8e, #b0b0b0);
+      transform: scaleY(0);
+      transform-origin: top;
+      animation: scaleIn 1.5s forwards 0.5s;
+    }
+    
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: all 0.5s ease;
+    }
+    
+    .timeline-item.animate {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -70px;
+      top: 20px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #8e8e8e;
+      border: 4px solid #4a4a4a;
+      transform: scale(0);
+      animation: scaleIn 0.5s forwards 1s;
+    }
+    
+    .timeline-year {
+      position: absolute;
+      left: -120px;
+      top: 15px;
+      font-weight: bold;
+      color: #b0b0b0;
+      opacity: 0;
+      animation: fadeInLeft 0.5s forwards 1.2s;
+    }
+    
+    /* Projects - Card Grid with Hover Effects */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .project-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      overflow: hidden;
+      transition: all 0.5s ease;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.5s ease;
+    }
+    
+    .project-card.animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(150, 150, 150, 0.1), rgba(150, 150, 150, 0.3));
+      z-index: -1;
+      opacity: 0;
+      transition: all 0.5s ease;
+    }
+    
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(150, 150, 150, 0.3);
+    }
+    
+    .project-card:hover::before {
+      opacity: 1;
+    }
+    
+    .project-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .project-card:hover .project-image {
+      transform: scale(1.05);
+    }
+    
+    .project-info {
+      padding: 20px;
+    }
+    
+    .project-info h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: #b0b0b0;
+    }
+    
+    .project-links {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    .project-links a {
+      padding: 8px 20px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      position: relative;
       overflow: hidden;
     }
-
-    .pfp {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 1em;
-      border: 3px solid #74c0fc;
-      box-shadow: 0 0 15px #74c0fc;
-      transition: transform 0.3s ease, box-shadow 0.4s ease;
-      animation: float 3s ease-in-out infinite;
+    
+    .project-links a::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0.3));
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
     }
-
-    .pfp:hover {
-      transform: scale(1.1) rotate(1deg);
-      box-shadow: 0 0 25px #74c0fc, 0 0 40px #74c0fc88;
+    
+    .project-links a:hover::after {
+      transform: translateX(0);
     }
-
-    h1 {
-      font-size: 3em;
-      margin-bottom: 0.2em;
-      animation: fadeIn 1s ease-in-out;
+    
+    .demo-link {
+      background: linear-gradient(90deg, #8e8e8e, #b0b0b0);
+      color: #fff;
     }
-
-    p {
-      font-size: 1.2em;
-      max-width: 600px;
-      margin-bottom: 1.5em;
-      opacity: 0.9;
-    }
-
-    .links {
-      display: flex;
-      gap: 20px;
-    }
-
-    .links a {
-      text-decoration: none;
-      color: #74c0fc;
-      font-weight: bold;
-      font-size: 1.2em;
-      padding: 10px 16px;
-      border-radius: 10px;
-      transition: all 0.25s ease;
-      background-color: transparent;
-      border: 2px solid #74c0fc;
-    }
-
-    .links a:hover {
-      color: #ffd700;
+    
+    .code-link {
       background: rgba(255, 255, 255, 0.1);
-      border-bottom: 2px solid #ffd700;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    /* Skills - Radial Progress Bars */
+    .skills-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 30px;
+    }
+    
+    .skill-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 0.5s ease;
+    }
+    
+    .skill-item.animate {
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+    .skill-radial {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin-bottom: 15px;
+    }
+    
+    .skill-radial svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+    
+    .skill-radial circle {
+      fill: none;
+      stroke-width: 10;
+      stroke-linecap: round;
+    }
+    
+    .skill-radial circle:first-child {
+      stroke: rgba(255, 255, 255, 0.1);
+    }
+    
+    .skill-radial circle:last-child {
+      stroke: #8e8e8e;
+      stroke-dasharray: 314;
+      stroke-dashoffset: calc(314 - (314 * var(--percent)) / 100);
+      animation: radialProgress 1.5s ease-in-out forwards;
+    }
+    
+    .skill-percent {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #fff;
+    }
+    
+    /* Contact - Form + Info */
+    .contact-container {
+      display: flex;
+      gap: 50px;
+    }
+    
+    .contact-form {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s forwards 0.5s;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #b0b0b0;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 12px 15px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: #8e8e8e;
+      box-shadow: 0 0 0 3px rgba(150, 150, 150, 0.3);
+    }
+    
+    .form-group .focus-border {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #8e8e8e;
+      transition: width 0.3s ease;
+    }
+    
+    .form-control:focus ~ .focus-border {
+      width: 100%;
+    }
+    
+    textarea.form-control {
+      min-height: 150px;
+      resize: vertical;
+    }
+    
+    .submit-btn {
+      background: linear-gradient(90deg, #8e8e8e, #b0b0b0);
+      color: #fff;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .submit-btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(255,255,255,0.2), rgba(255,255,255,0.4));
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+    
+    .submit-btn:hover::after {
+      transform: translateX(0);
+    }
+    
+    .submit-btn:hover {
       transform: translateY(-3px);
-      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+      box-shadow: 0 10px 20px rgba(150, 150, 150, 0.3);
     }
-
-    .links a:active {
-      transform: translateY(-5px) scale(0.95);
-      box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
+    
+    .contact-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    
+    .contact-method {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+      opacity: 0;
+      transform: translateX(30px);
+      transition: all 0.5s ease;
     }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+    
+    .contact-method.animate {
+      opacity: 1;
+      transform: translateX(0);
     }
-
-    .flower {
-      position: fixed;
-      top: -40px;
-      width: 16px;
-      height: 16px;
-      background: radial-gradient(circle, #74c0fc 30%, transparent 40%);
+    
+    .contact-icon {
+      width: 60px;
+      height: 60px;
+      background: rgba(150, 150, 150, 0.1);
       border-radius: 50%;
-      pointer-events: none;
-      animation: fall 9s linear infinite, sway 2.5s ease-in-out infinite;
-      opacity: 0.7;
-      z-index: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 20px;
+      font-size: 1.5rem;
+      color: #8e8e8e;
+      transition: all 0.3s ease;
     }
-
-    @keyframes fall {
-      to {
-        transform: translateY(110vh);
+    
+    .contact-method:hover .contact-icon {
+      background: rgba(150, 150, 150, 0.3);
+      transform: rotate(15deg) scale(1.1);
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px 0;
+      background: rgba(50, 50, 50, 0.8);
+      backdrop-filter: blur(10px);
+      position: relative;
+    }
+    
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #8e8e8e, transparent);
+    }
+    
+    /* Animations */
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
       }
     }
-
-    @keyframes sway {
-      0%, 100% { transform: translateX(0); }
-      50% { transform: translateX(30px); }
+    
+    @keyframes floatRotate {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-40px) rotate(180deg);
+      }
+      100% {
+        transform: translateY(0) rotate(360deg);
+      }
+    }
+    
+    @keyframes radialProgress {
+      from {
+        stroke-dashoffset: 314;
+      }
+      to {
+        stroke-dashoffset: calc(314 - (314 * var(--percent)) / 100);
+      }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateY(-50%) translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+      }
+    }
+    
+    @keyframes fadeInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes scaleIn {
+      from {
+        transform: scale(0);
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+    
+    @keyframes scaleInRotate {
+      from {
+        opacity: 0;
+        transform: scale(0.8) rotate(10deg);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+      }
+    }
+    
+    /* Particle animation */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+    
+    .particle {
+      position: absolute;
+      background: rgba(255,255,255,0.5);
+      border-radius: 50%;
+      animation: particleFloat linear infinite;
+    }
+    
+    @keyframes particleFloat {
+      to {
+        transform: translateY(-100vh);
+      }
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .header-container {
+        flex-direction: column;
+        padding-top: 100px;
+      }
+      
+      .header-right {
+        clip-path: none;
+        padding: 50px 0;
+      }
+      
+      .profile-img-container {
+        width: 250px;
+        height: 250px;
+      }
+      
+      .contact-container {
+        flex-direction: column;
+      }
+      
+      .nav-vertical {
+        left: 20px;
+        padding: 15px 5px;
+        gap: 15px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      .title {
+        font-size: 1.2rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .about-timeline {
+        padding-left: 60px;
+      }
+      
+      .timeline-item::before {
+        left: 10px;
+      }
+      
+      .timeline-year {
+        position: static;
+        display: block;
+        margin-bottom: 10px;
+        color: #b0b0b0;
+      }
+      
+      .nav-vertical {
+        flex-direction: row;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        transform: none;
+        border-radius: 20px 20px 0 0;
+        justify-content: center;
+      }
+      
+      .nav-link i {
+        margin-bottom: 0;
+        margin-right: 5px;
+      }
+      
+      .nav-link span {
+        display: none;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .skills-container {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
     }
   </style>
 </head>
 <body>
-
-  <img src="https://cdn.discordapp.com/attachments/1377625593893359716/1386735887622340692/image.png?ex=685ac9ef&is=6859786f&hm=d555e04604be9a2852af1d705650d7437564635e3178ba59268dba3e3e0dc8a5&" alt="Profile Picture" class="pfp" />
-  
-  <h1>Aetheris</h1>
-  <p>
-    A creative mind who loves coding, design, and coffee ☕ <br>
-    Currently building cool stuff on Minecraft & Discord.
-  </p>
-
-  <div class="links">
-    <a href="https://discord.gg/8NFAMrhwwj" target="_blank">Discord</a>
-    <a href="https://github.com" target="_blank">GitHub</a>
-    <a href="https://www.tiktok.com/@user_q158" target="_blank">TikTok</a>
+  <!-- Floating Background Elements -->
+  <div class="floating-elements">
+    <div class="floating-element" style="width: 300px; height: 300px; top: 10%; left: 5%; animation-duration: 20s;"></div>
+    <div class="floating-element" style="width: 200px; height: 200px; top: 60%; left: 80%; animation-duration: 25s;"></div>
+    <div class="floating-element" style="width: 400px; height: 400px; top: 30%; left: 50%; animation-duration: 30s;"></div>
   </div>
+  
+  <!-- Additional floating shapes -->
+  <div class="floating-shapes">
+    <div class="floating-shape shape-triangle" style="top: 15%; left: 10%; animation-delay: 2s; animation-duration: 30s;"></div>
+    <div class="floating-shape shape-square" style="top: 70%; left: 80%; animation-delay: 5s; animation-duration: 25s;"></div>
+    <div class="floating-shape shape-triangle" style="top: 40%; left: 65%; animation-delay: 7s; animation-duration: 35s;"></div>
+    <div class="floating-shape shape-square" style="top: 20%; left: 75%; animation-delay: 3s; animation-duration: 40s;"></div>
+  </div>
+  
+  <!-- Particle animation -->
+  <div class="particles" id="particles"></div>
+  
+  <!-- Vertical Navigation -->
+  <nav class="nav-vertical">
+    <a href="#home" class="nav-link active">
+      <i class="fas fa-home"></i>
+      <span>Home</span>
+    </a>
+    <a href="#about" class="nav-link">
+      <i class="fas fa-user"></i>
+      <span>About</span>
+    </a>
+    <a href="#projects" class="nav-link">
+      <i class="fas fa-code"></i>
+      <span>Projects</span>
+    </a>
+    <a href="#skills" class="nav-link">
+      <i class="fas fa-cog"></i>
+      <span>Skills</span>
+    </a>
+    <a href="#contact" class="nav-link">
+      <i class="fas fa-envelope"></i>
+      <span>Contact</span>
+    </a>
+  </nav>
+  
+  <div class="container">
+    <!-- Header/Hero Section - Split Screen -->
+    <header id="home" class="header-container">
+      <div class="header-left">
+        <h1>Hello, I'm <span class="name-animation">Aetheris</span></h1>
+        <p class="title">Minecraft & Discord Developer</p>
+        <p style="margin-bottom: 30px; line-height: 1.8; color: rgba(255,255,255,0.8);">
+          I create immersive Minecraft experiences and powerful Discord bots that enhance communities and gameplay.
+        </p>
+        <div style="display: flex; gap: 20px;">
+          <a href="#contact" style="background: linear-gradient(90deg, #8e8e8e, #b0b0b0); color: #fff; padding: 12px 30px; border-radius: 30px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+            Contact Me
+          </a>
+          <a href="#projects" style="background: rgba(255,255,255,0.1); color: #fff; padding: 12px 30px; border-radius: 30px; text-decoration: none; font-weight: 600; border: 1px solid rgba(255,255,255,0.2); transition: all 0.3s ease;">
+            View Projects
+          </a>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="profile-img-container">
+          <img src="https://cdn.discordapp.com/attachments/1377625593893359716/1386735887622340692/image.png?ex=685b72af&is=685a212f&hm=b6e817632998bdcf8308b22d6e04a551a702f4f3679524c820027325ef6c1509&" alt="Profile" class="profile-img">
+          <div class="profile-img-decoration"></div>
+        </div>
+      </div>
+    </header>
+    
+    <!-- About Section - Timeline Layout -->
+    <section class="section" id="about">
+      <h2 class="section-title">My Journey</h2>
+      <div class="about-timeline">
+        <div class="timeline-item">
+          <div class="timeline-year">2020</div>
+          <h3>First Discovered Minecraft</h3>
+          <p>Started playing Minecraft and immediately fell in love with the creative possibilities and modding community.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2021</div>
+          <h3>Started Learning Java</h3>
+          <p>Began learning Java programming to understand Minecraft's mechanics and create simple modifications.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2022</div>
+          <h3>First Public Plugin</h3>
+          <p>Released my first public Minecraft plugin which gained popularity among small server communities.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2023</div>
+          <h3>Discord Bot Development</h3>
+          <p>Expanded into Discord bot development to enhance community engagement for Minecraft servers.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2024</div>
+          <h3>Professional Development</h3>
+          <p>Started offering professional Minecraft plugin and Discord bot development services.</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Projects Section - Card Grid -->
+    <section class="section" id="projects">
+      <h2 class="section-title">Featured Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <img src="https://images.unsplash.com/photo-1587573089734-599851b0c6b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Minecraft Plugin" class="project-image">
+          <div class="project-info">
+            <h3>Minecraft RPG Plugin</h3>
+            <p>A custom RPG plugin with classes, skills, quests, and custom items. Features a progression system and boss battles.</p>
+            <div class="project-links">
+              <a href="https://discord.gg/minecraftserver" class="demo-link">
+                <i class="fas fa-server"></i> Server
+              </a>
+              <a href="https://github.com/aetherisdev/minecraft-rpg-plugin" class="code-link">
+                <i class="fab fa-github"></i> Code
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <img src="https://images.unsplash.com/photo-1639762681057-408e52192e55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80" alt="Discord Bot" class="project-image">
+          <div class="project-info">
+            <h3>Discord Community Bot</h3>
+            <p>A multi-purpose bot with moderation, economy, games, and custom commands. Supports 10,000+ users.</p>
+            <div class="project-links">
+              <a href="https://discord.gg/aetheris" class="demo-link">
+                <i class="fab fa-discord"></i> Discord
+              </a>
+              <a href="https://github.com/aetherisdev/discord-bot" class="code-link">
+                <i class="fab fa-github"></i> Code
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <img src="https://images.unsplash.com/photo-1627855437693-dcc7b0c4ba7b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Minecraft Modpack" class="project-image">
+          <div class="project-info">
+            <h3>Custom Modpack</h3>
+            <p>A curated Minecraft modpack with 100+ mods, custom configurations, and balanced gameplay. (Coming Soon)</p>
+            <div class="project-links">
+              <a class="demo-link" style="cursor: not-allowed;">
+                <i class="fas fa-clock"></i> Coming Soon
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Skills Section - Radial Progress -->
+    <section class="section" id="skills">
+      <h2 class="section-title">My Skills</h2>
+      <div class="skills-container">
+        <div class="skill-item">
+          <div class="skill-radial">
+            <svg viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="45"></circle>
+              <circle cx="50" cy="50" r="45" style="--percent: 90"></circle>
+            </svg>
+            <div class="skill-percent">90%</div>
+          </div>
+          <h3>Java</h3>
+          <p>Minecraft Plugin Development</p>
+        </div>
+        
+        <div class="skill-item">
+          <div class="skill-radial">
+            <svg viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="45"></circle              <circle cx="50" cy="50" r="45" style="--percent: 85"></circle>
+            </svg>
+            <div class="skill-percent">85%</div>
+          </div>
+          <h3>JavaScript</h3>
+          <p>Discord Bot Development</p>
+        </div>
+        
+        <div class="skill-item">
+          <div class="skill-radial">
+            <svg viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="45"></circle>
+              <circle cx="50" cy="50" r="45" style="--percent: 95"></circle>
+            </svg>
+            <div class="skill-percent">95%</div>
+          </div>
+          <h3>Minecraft Modding</h3>
+          <p>Custom Game Mechanics</p>
+        </div>
+        
+        <div class="skill-item">
+          <div class="skill-radial">
+            <svg viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="45"></circle>
+              <circle cx="50" cy="50" r="45" style="--percent: 88"></circle>
+            </svg>
+            <div class="skill-percent">88%</div>
+          </div>
+          <h3>Discord.js</h3>
+          <p>Bot Development</p>
+        </div>
+        
+        <div class="skill-item">
+          <div class="skill-radial">
+            <svg viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="45"></circle>
+              <circle cx="50" cy="50" r="45" style="--percent: 80"></circle>
+            </svg>
+            <div class="skill-percent">80%</div>
+          </div>
+          <h3>Python</h3>
+          <p>Scripting & Automation</p>
+        </div>
+        
+        <div class="skill-item">
+          <div class="skill-radial">
+            <svg viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="45"></circle>
+              <circle cx="50" cy="50" r="45" style="--percent: 85"></circle>
+            </svg>
+            <div class="skill-percent">85%</div>
+          </div>
+          <h3>Server Management</h3>
+          <p>Optimization & Setup</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Contact Section - Form + Info -->
+<section class="section" id="contact">
+  <h2 class="section-title">Get In Touch</h2>
+  <div class="contact-container">
+    <div class="contact-form">
+      <form id="contactForm" action="https://formspree.io/f/xqabyvnn" method="POST">
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" name="name" class="form-control" required>
+          <div class="focus-border"></div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" class="form-control" required>
+          <div class="focus-border"></div>
+        </div>
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" name="subject" class="form-control" required>
+          <div class="focus-border"></div>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" class="form-control" required></textarea>
+          <div class="focus-border"></div>
+        </div>
+        <button type="submit" class="submit-btn">Send Message</button>
+      </form>
+    </div>
+    <div class="contact-info">
+      <div class="contact-method">
+        <div class="contact-icon">
+          <i class="fas fa-envelope"></i>
+        </div>
+        <div>
+          <h3>Email</h3>
+          <p>nauranabila2028@gmail.com</p> <!-- Email diubah disini -->
+        </div>
+      </div>
+      <div class="contact-method">
+        <div class="contact-icon">
+          <i class="fab fa-discord"></i>
+        </div>
+        <div>
+          <h3>Discord</h3>
+          <p>Aetheris#1234</p>
+        </div>
+      </div>
+      <div class="contact-method">
+        <div class="contact-icon">
+          <i class="fab fa-github"></i>
+        </div>
+        <div>
+          <h3>GitHub</h3>
+          <p>github.com/aetherisdev</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<footer>
+  <p>&copy; 2023 Aetheris. All rights reserved.</p>
+  <div class="social-links">
+    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+    <a href="#" class="social-icon"><i class="fab fa-discord"></i></a>
+    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+  </div>
+</footer>
+  
+  <!-- Font Awesome for icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  
   <script>
-    for (let i = 0; i < 30; i++) {
-      const flower = document.createElement('span');
-      flower.className = 'flower';
-      flower.style.left = Math.random() * 100 + 'vw';
-      flower.style.animationDelay = (Math.random() * 10).toFixed(2) + 's';
-      flower.style.width = flower.style.height = (Math.random() * 10 + 10) + 'px';
-      document.body.appendChild(flower);
+    // Name typing animation
+    const nameElement = document.querySelector('.name-animation');
+    const nameText = 'Aetheris';
+    let i = 0;
+    
+    function typeWriter() {
+      if (i < nameText.length) {
+        nameElement.textContent = nameText.substring(0, i+1);
+        i++;
+        setTimeout(typeWriter, 150);
+      } else {
+        // Keep the blinking cursor after typing is complete
+        nameElement.style.animation = 'blink 0.7s infinite';
+      }
+    }
+    
+    // Start the typing animation after a short delay
+    setTimeout(typeWriter, 1000);
+    
+    // Navigation active state
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    window.addEventListener('scroll', () => {
+      let current = '';
+      
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        
+        if (pageYOffset >= sectionTop - 300) {
+          current = section.getAttribute('id');
+        }
+      });
+      
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+    
+    // Smooth scroll for navigation links
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 100,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // Form submission with animation
+    const form = document.getElementById('contactForm');
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Create a confirmation element
+        const confirmation = document.createElement('div');
+        confirmation.innerHTML = `
+          <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+          background: rgba(0,0,0,0.8); display: flex; justify-content: center; 
+          align-items: center; z-index: 1000; animation: fadeIn 0.5s ease forwards;">
+            <div style="background: rgba(50,50,50,0.9); padding: 40px; border-radius: 10px; 
+            text-align: center; transform: scale(0.8); animation: scaleIn 0.5s ease forwards 0.3s;">
+              <i class="fas fa-check-circle" style="font-size: 3rem; color: #8e8e8e; margin-bottom: 20px;"></i>
+              <h3 style="margin-bottom: 10px;">Message Sent!</h3>
+              <p style="margin-bottom: 20px;">Thank you for reaching out. I'll get back to you soon.</p>
+              <button id="closeConfirmation" style="background: #8e8e8e; color: white; 
+              border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+                Close
+              </button>
+            </div>
+          </div>
+        `;
+        
+        document.body.appendChild(confirmation);
+        
+        // Close confirmation
+        document.getElementById('closeConfirmation').addEventListener('click', function() {
+          confirmation.style.animation = 'fadeOut 0.5s ease forwards';
+          setTimeout(() => {
+            confirmation.remove();
+          }, 500);
+        });
+        
+        this.reset();
+      });
+    }
+    
+    // Animate elements when they come into view
+    const animateOnScroll = () => {
+      const elements = document.querySelectorAll('.timeline-item, .project-card, .skill-item, .contact-method');
+      
+      elements.forEach(element => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.2;
+        
+        if (elementPosition < screenPosition) {
+          element.classList.add('animate');
+        }
+      });
+    };
+    
+    window.addEventListener('scroll', animateOnScroll);
+    window.addEventListener('load', animateOnScroll);
+    
+    // Particle animation
+    const particlesContainer = document.getElementById('particles');
+    const particleCount = 50;
+    
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      
+      // Random properties
+      const size = Math.random() * 5 + 1;
+      const posX = Math.random() * window.innerWidth;
+      const delay = Math.random() * 5;
+      const duration = Math.random() * 10 + 10;
+      
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.left = `${posX}px`;
+      particle.style.bottom = `-10px`;
+      particle.style.animationDelay = `${delay}s`;
+      particle.style.animationDuration = `${duration}s`;
+      particle.style.opacity = Math.random() * 0.5 + 0.1;
+      
+      particlesContainer.appendChild(particle);
+    }
+    
+    // Hover effect for social icons
+    const socialIcons = document.querySelectorAll('.social-icon');
+    socialIcons.forEach(icon => {
+      icon.addEventListener('mouseenter', () => {
+        icon.style.transform = 'translateY(-5px) scale(1.2)';
+        icon.style.transition = 'all 0.3s ease';
+      });
+      icon.addEventListener('mouseleave', () => {
+        icon.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+    
+    // Add keyframe animations to style tag
+    const styleTag = document.createElement('style');
+    styleTag.innerHTML = `
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+      }
+      @keyframes scaleIn {
+        from { transform: scale(0.8); }
+        to { transform: scale(1); }
+      }
+    `;
+    document.head.appendChild(styleTag);
+    
+    // Background animation on scroll
+    window.addEventListener('scroll', () => {
+      const scrollPosition = window.scrollY;
+      const floatingElements = document.querySelectorAll('.floating-element');
+      
+      floatingElements.forEach((element, index) => {
+        const speed = index * 0.05 + 0.5;
+        element.style.transform = `translateY(${scrollPosition * speed * 0.1}px)`;
+      });
+    });
+    
+    // Interactive profile image
+    const profileImg = document.querySelector('.profile-img');
+    if (profileImg) {
+      profileImg.addEventListener('mousemove', (e) => {
+        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+        profileImg.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+      });
+      
+      profileImg.addEventListener('mouseleave', () => {
+        profileImg.style.transform = 'rotateY(0deg) rotateX(0deg)';
+      });
     }
   </script>
-
 </body>
 </html>
