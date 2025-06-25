@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dark Profile</title>
+    <title>Black Animated Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Blue Heart Cursor */
+        /* Base Styles */
         * {
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="%2366b3ff" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>'), auto;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="%23ffffff" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>'), auto;
         }
         
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #121212;
             color: #e0e0e0;
-            margin: 0;
-            padding: 0;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -25,313 +26,580 @@
             position: relative;
         }
 
-        /* Animated Background */
-        .bg-animation {
+        /* Animated Black Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            overflow: hidden;
+        }
+
+        /* Advanced Grid Animation */
+        .grid-lines {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -2;
-            overflow: hidden;
-            background: radial-gradient(circle at center, #1a1a1a 0%, #111 100%);
-        }
-
-        /* Moving Grid Pattern */
-        .grid-pattern {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 200%;
-            height: 200%;
             background-image: 
-                linear-gradient(rgba(80,80,80,0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(80,80,80,0.1) 1px, transparent 1px);
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
             background-size: 40px 40px;
-            animation: moveGrid 40s linear infinite;
+            animation: gridMove 80s linear infinite;
         }
 
-        @keyframes moveGrid {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(-40px, -40px); }
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 80px 80px; }
         }
 
-        /* Floating Dots */
+        /* Floating Particles with Trail Effect */
         .floating-dots {
             position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
+            overflow: hidden;
         }
 
         .dot {
             position: absolute;
-            width: 5px;
-            height: 5px;
-            background: rgba(150,150,150,0.2);
+            width: 3px;
+            height: 3px;
+            background: rgba(255,255,255,0.5);
             border-radius: 50%;
-            animation: floatDot 15s linear infinite;
+            filter: blur(0.5px);
+            animation: floatDot linear infinite;
+        }
+
+        .dot::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            opacity: 0.3;
         }
 
         @keyframes floatDot {
-            0% {
-                transform: translateY(100vh) scale(0.5);
-                opacity: 0;
+            0% { 
+                transform: translateY(0) translateX(0); 
+                opacity: 0; 
             }
-            10% {
-                opacity: 0.6;
-            }
-            90% {
-                opacity: 0.6;
-            }
-            100% {
-                transform: translateY(-100px) scale(1);
-                opacity: 0;
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { 
+                transform: translateY(-100vh) translateX(calc(var(--random-x) * 100px)); 
+                opacity: 0; 
             }
         }
 
-        /* Profile Box */
-        .profile-box {
-            background: rgba(40,40,40,0.9);
-            backdrop-filter: blur(8px);
-            border-radius: 15px;
-            padding: 40px;
-            width: 300px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 1px solid rgba(80,80,80,0.2);
+        /* Dynamic Light Rays */
+        .light-rays {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .ray {
+            position: absolute;
+            width: 1px;
+            height: 200%;
+            background: linear-gradient(to bottom, 
+                transparent, 
+                rgba(255,255,255,0.1), 
+                transparent);
+            transform-origin: top center;
+            animation: rayRotate linear infinite;
+            filter: blur(1px);
+        }
+
+        @keyframes rayRotate {
+            0% { transform: rotate(0deg) translateY(-50%); }
+            100% { transform: rotate(360deg) translateY(-50%); }
+        }
+
+        /* Pulsing Circles Effect */
+        .pulsing-circles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .pulse-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.05);
+            animation: pulse linear infinite;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes pulse {
+            0% { 
+                width: 0; 
+                height: 0; 
+                opacity: 0.5; 
+            }
+            100% { 
+                width: 500px; 
+                height: 500px; 
+                opacity: 0; 
+            }
+        }
+
+        /* Profile Container */
+        .profile-container {
             position: relative;
-            z-index: 1;
-            animation: floatBox 6s ease-in-out infinite;
+            width: 350px;
+            perspective: 1000px;
+        }
+
+        /* Profile Card */
+        .profile-card {
+            background: rgba(40, 40, 40, 0.8);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             transform-style: preserve-3d;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            animation: cardFloat 6s ease-in-out infinite;
+            z-index: 10;
         }
 
-        @keyframes floatBox {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0) rotateX(0) rotateY(0); }
+            50% { transform: translateY(-15px) rotateX(5deg) rotateY(5deg); }
         }
 
-        /* Glow Effect */
-        .profile-box::before {
+        /* Card Glow Effect */
+        .profile-card::before {
             content: '';
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, 
-                transparent 0%, 
-                rgba(100,149,237,0.05) 50%, 
-                transparent 100%);
-            transform: rotate(45deg);
-            animation: shine 5s infinite;
+            background: linear-gradient(
+                to bottom right,
+                transparent,
+                transparent,
+                transparent,
+                rgba(255, 255, 255, 0.05)
+            );
+            transform: rotate(30deg);
+            animation: cardShine 8s linear infinite;
             z-index: -1;
         }
 
-        @keyframes shine {
-            0% { transform: translateX(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) rotate(45deg); }
+        @keyframes cardShine {
+            0% { transform: rotate(30deg) translate(-10%, -10%); }
+            50% { transform: rotate(30deg) translate(10%, 10%); }
+            100% { transform: rotate(30deg) translate(-10%, -10%); }
         }
 
+        /* Profile Picture */
         .profile-pic {
-            width: 120px;
-            height: 120px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid rgba(80,80,80,0.5);
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            margin: 0 auto 20px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+            margin: 0 auto 25px;
             transition: all 0.5s ease;
-        }
-
-        .profile-pic:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 30px rgba(100,149,237,0.3);
-            border-color: rgba(100,149,237,0.7);
-        }
-
-        .name {
-            font-size: 28px;
-            margin: 15px 0 5px;
-            color: #f0f0f0;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
             position: relative;
-            animation: fadeIn 1s ease-out;
+            animation: picPulse 4s ease-in-out infinite;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes picPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(255, 255, 255, 0.1); }
+            50% { transform: scale(1.05); box-shadow: 0 0 50px rgba(255, 255, 255, 0.2); }
+        }
+
+        .profile-pic::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top-color: #ffffff;
+            border-bottom-color: #ffffff;
+            animation: picRotate 3s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes picRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Name */
+        .name {
+            font-size: 2rem;
+            margin: 15px 0 10px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            position: relative;
+            animation: textGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
+            100% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
         }
 
         .name::after {
             content: '';
             position: absolute;
-            bottom: -8px;
+            bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
-            width: 50px;
-            height: 2px;
-            background: #66b3ff;
-            border-radius: 2px;
-            animation: lineGrow 2s ease-in-out infinite alternate;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ffffff, transparent);
+            border-radius: 3px;
+            animation: lineExpand 3s ease-in-out infinite alternate;
         }
 
-        @keyframes lineGrow {
-            0% { width: 50px; }
-            100% { width: 100px; }
+        @keyframes lineExpand {
+            0% { width: 80px; opacity: 0.5; }
+            100% { width: 120px; opacity: 1; }
         }
 
+        /* Social Icons */
         .social-icons {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
             margin-top: 30px;
         }
 
         .social-icon {
             font-size: 2rem;
-            color: #888;
+            color: #aaa;
             transition: all 0.3s ease;
-            cursor: pointer;
             position: relative;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(50, 50, 50, 0.7);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .social-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            animation: iconBorder 4s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes iconBorder {
+            0% { transform: rotate(0deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: rotate(360deg); opacity: 0; }
         }
 
         .social-icon:hover {
-            transform: translateY(-5px) scale(1.2);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
         }
 
-        #discord:hover { color: #7289da; }
-        #instagram:hover { color: #c13584; }
-        #tiktok:hover { color: #00f2ea; }
+        #discord:hover { color: #7289da; background: rgba(114, 137, 218, 0.1); }
+        #instagram:hover { color: #c13584; background: rgba(193, 53, 132, 0.1); }
+        #tiktok:hover { color: #00f2ea; background: rgba(0, 242, 234, 0.1); }
 
-        /* Click Animation */
-        .social-icon.clicked {
-            animation: iconBounce 0.5s ease;
+        .social-icon:hover::before {
+            border-color: currentColor;
         }
 
-        @keyframes iconBounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.3); }
+        /* Platform Name */
+        .platform-name {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            color: #aaa;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover .platform-name {
+            opacity: 1;
+            bottom: -20px;
         }
 
         /* Music Control */
         .music-control {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            background: rgba(50,50,50,0.8);
+            background: rgba(50, 50, 50, 0.8);
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #66b3ff;
+            color: #ffffff;
             cursor: pointer;
             transition: all 0.3s ease;
-            border: 1px solid rgba(80,80,80,0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             z-index: 100;
-            animation: pulse 2s infinite;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: musicPulse 2s ease-in-out infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 0 rgba(102,179,255,0); }
-            50% { transform: scale(1.05); box-shadow: 0 0 15px rgba(102,179,255,0.3); }
+        @keyframes musicPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); }
+            50% { transform: scale(1.1); box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2); }
         }
 
         .music-control:hover {
-            background: rgba(80,80,80,0.8);
+            background: rgba(70, 70, 70, 0.9);
             transform: scale(1.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .profile-container {
+                width: 90%;
+            }
+            
+            .profile-card {
+                padding: 30px 20px;
+            }
+            
+            .profile-pic {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .name {
+                font-size: 1.7rem;
+            }
+            
+            .social-icons {
+                gap: 15px;
+            }
+            
+            .social-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            
+            .music-control {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Animated Background -->
-    <div class="bg-animation">
-        <div class="grid-pattern"></div>
+    <!-- Animated Black Background -->
+    <div class="animated-bg">
+        <div class="grid-lines"></div>
         <div class="floating-dots" id="floatingDots"></div>
+        <div class="light-rays" id="lightRays"></div>
+        <div class="pulsing-circles" id="pulsingCircles"></div>
     </div>
     
-    <!-- Profile Box -->
-    <div class="profile-box">
-        <img src="https://cdn.discordapp.com/attachments/1377625593893359716/1386735887622340692/image.png?ex=685cc42f&is=685b72af&hm=2c90e7b6ebd163c59ec65176de4bacb0c8a88c9dc54faa87620d7fa65a0511d2&" alt="Profile" class="profile-pic">
-        <h1 class="name">Aetheris</h1>
-        
-        <div class="social-icons">
-            <div class="social-item">
-                <a href="https://discord.com/users/1373286329944637440" target="_blank" class="social-icon" id="discord">
-                    <i class="fab fa-discord"></i>
-                </a>
-                <span class="platform-name">Discord</span>
-            </div>
-            <div class="social-item">
-                <a href="https://www.instagram.com/nauraa282_/" target="_blank" class="social-icon" id="instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <span class="platform-name">Instagram</span>
-            </div>
-            <div class="social-item">
-                <a href="https://www.tiktok.com/@user_q158" target="_blank" class="social-icon" id="tiktok">
-                    <i class="fab fa-tiktok"></i>
-                </a>
-                <span class="platform-name">TikTok</span>
+    <!-- Profile Card -->
+    <div class="profile-container">
+        <div class="profile-card">
+            <img src="https://cdn.discordapp.com/attachments/1377625593893359716/1386735887622340692/image.png?ex=685cc42f&is=685b72af&hm=2c90e7b6ebd163c59ec65176de4bacb0c8a88c9dc54faa87620d7fa65a0511d2&" alt="Profile" class="profile-pic">
+            <h1 class="name">Aetheris</h1>
+            
+            <div class="social-icons">
+                <div class="social-item">
+                    <a href="https://discord.com/users/1373286329944637440" target="_blank" class="social-icon" id="discord">
+                        <i class="fab fa-discord"></i>
+                        <span class="platform-name">Discord</span>
+                    </a>
+                </div>
+                <div class="social-item">
+                    <a href="https://www.instagram.com/nauraa282_/" target="_blank" class="social-icon" id="instagram">
+                        <i class="fab fa-instagram"></i>
+                        <span class="platform-name">Instagram</span>
+                    </a>
+                </div>
+                <div class="social-item">
+                    <a href="https://www.tiktok.com/@user_q158" target="_blank" class="social-icon" id="tiktok">
+                        <i class="fab fa-tiktok"></i>
+                        <span class="platform-name">TikTok</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
     
     <!-- Music Control -->
     <div class="music-control" id="musicControl">
-        <i class="fas fa-music"></i>
+        <i class="fas fa-pause"></i>
     </div>
     
     <!-- Background Music -->
-    <audio id="bgMusic" loop>
-        <source src="background-music-mp3-free-download-267823.mp3" type="audio/mpeg">
+    <audio id="bgMusic" loop autoplay>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        // Create floating dots
+        // Create floating dots with trail effect
         const dotsContainer = document.getElementById('floatingDots');
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < 50; i++) {
             const dot = document.createElement('div');
             dot.classList.add('dot');
             
-            const size = Math.random() * 6 + 2;
+            const size = Math.random() * 3 + 1;
             const posX = Math.random() * 100;
-            const duration = Math.random() * 15 + 10;
-            const delay = Math.random() * 5;
+            const delay = Math.random() * 15;
+            const duration = Math.random() * 30 + 20;
+            const randomX = (Math.random() * 2 - 1); // Random value between -1 and 1
             
             dot.style.width = `${size}px`;
             dot.style.height = `${size}px`;
             dot.style.left = `${posX}%`;
+            dot.style.top = '100vh';
             dot.style.animationDuration = `${duration}s`;
             dot.style.animationDelay = `${delay}s`;
+            dot.style.setProperty('--random-x', randomX);
             
             dotsContainer.appendChild(dot);
         }
 
+        // Create light rays
+        const raysContainer = document.getElementById('lightRays');
+        for (let i = 0; i < 12; i++) {
+            const ray = document.createElement('div');
+            ray.classList.add('ray');
+            
+            const angle = i * (360 / 12);
+            const duration = Math.random() * 60 + 60;
+            const delay = Math.random() * 10;
+            const height = 150 + Math.random() * 100;
+            
+            ray.style.transform = `rotate(${angle}deg) translateY(-50%)`;
+            ray.style.left = '50%';
+            ray.style.height = `${height}%`;
+            ray.style.animationDuration = `${duration}s`;
+            ray.style.animationDelay = `${delay}s`;
+            
+            raysContainer.appendChild(ray);
+        }
+
+        // Create pulsing circles
+        const circlesContainer = document.getElementById('pulsingCircles');
+        for (let i = 0; i < 5; i++) {
+            const circle = document.createElement('div');
+            circle.classList.add('pulse-circle');
+            
+            const posX = Math.random() * 100;
+            const posY = Math.random() * 100;
+            const delay = Math.random() * 10;
+            const duration = 10 + Math.random() * 20;
+            
+            circle.style.left = `${posX}%`;
+            circle.style.top = `${posY}%`;
+            circle.style.animationDuration = `${duration}s`;
+            circle.style.animationDelay = `${delay}s`;
+            circle.style.borderColor = `rgba(255,255,255,${0.02 + Math.random() * 0.03})`;
+            
+            circlesContainer.appendChild(circle);
+        }
+
+        // 3D tilt effect
+        const profileCard = document.querySelector('.profile-card');
+        document.addEventListener('mousemove', (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            profileCard.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg) translateY(-15px)`;
+        });
+
+        // Reset card position when mouse leaves
+        document.addEventListener('mouseleave', () => {
+            profileCard.style.transform = 'rotateY(0) rotateX(0)';
+        });
+
         // Music control
         const music = document.getElementById('bgMusic');
         const musicControl = document.getElementById('musicControl');
-        let isMusicPlaying = false;
+        let isMusicPlaying = true;
         
         // Set volume
         music.volume = 0.3;
         
         // Try to autoplay
-        const playPromise = music.play();
-        
-        if (playPromise !== undefined) {
-            playPromise.then(_ => {
-                isMusicPlaying = true;
-                musicControl.innerHTML = '<i class="fas fa-pause"></i>';
-            })
-            .catch(error => {
-                console.log("Autoplay prevented");
-                isMusicPlaying = false;
-                musicControl.innerHTML = '<i class="fas fa-music"></i>';
-            });
+        function startMusic() {
+            const playPromise = music.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    isMusicPlaying = true;
+                    musicControl.innerHTML = '<i class="fas fa-pause"></i>';
+                })
+                .catch(error => {
+                    console.log("Autoplay prevented - will wait for user interaction");
+                    // Add event listener to start music on first user interaction
+                    document.addEventListener('click', firstInteraction, { once: true });
+                });
+            }
         }
+        
+        function firstInteraction() {
+            music.play()
+                .then(_ => {
+                    isMusicPlaying = true;
+                    musicControl.innerHTML = '<i class="fas fa-pause"></i>';
+                })
+                .catch(error => {
+                    console.log("Still couldn't play music:", error);
+                });
+        }
+        
+        // Start the music automatically
+        startMusic();
         
         musicControl.addEventListener('click', function() {
             if (isMusicPlaying) {
@@ -354,24 +622,33 @@
             });
             
             icon.addEventListener('mouseleave', function() {
-                document.body.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' viewBox=\'0 0 24 24\'><path fill=\'%2366b3ff\' d=\'M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z\'/></svg>"), auto';
+                document.body.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' viewBox=\'0 0 24 24\'><path fill=\'%23ffffff\' d=\'M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z\'/></svg>"), auto';
             });
 
             // Add click animation
             icon.addEventListener('click', function(e) {
-                this.classList.add('clicked');
-                setTimeout(() => {
-                    this.classList.remove('clicked');
-                }, 500);
+                if (e.target.tagName === 'A') return;
+                
+                this.style.animation = 'none';
+                void this.offsetWidth; // Trigger reflow
+                this.style.animation = 'iconFloat 0.5s ease';
             });
         });
 
-        // 3D tilt effect
-        const profileBox = document.querySelector('.profile-box');
-        document.addEventListener('mousemove', (e) => {
-            const xAxis = (window.innerWidth / 2 - e.pageX) / 20;
-            const yAxis = (window.innerHeight / 2 - e.pageY) / 20;
-            profileBox.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg) translateY(-10px)`;
+        // Dynamic border colors for social icons
+        document.querySelectorAll('.social-icon').forEach(icon => {
+            icon.addEventListener('mouseenter', function() {
+                const color = this.id === 'discord' ? '#7289da' : 
+                             this.id === 'instagram' ? '#c13584' : '#00f2ea';
+                
+                this.style.borderColor = color;
+                this.style.boxShadow = `0 0 20px ${color}`;
+            });
+            
+            icon.addEventListener('mouseleave', function() {
+                this.style.borderColor = 'transparent';
+                this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
+            });
         });
     </script>
 </body>
